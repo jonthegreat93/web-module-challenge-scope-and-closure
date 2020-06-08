@@ -2,47 +2,50 @@
 
 /**
  * ### Challenge `processFirstItem`
- * 
+ *
  * @instructions
  * Implement a higher-order function called `processFirstItem`.
  * It takes two arguments:
  * @param stringList an array of strings.
  * @param callback function that takes a string as its argument.
  * @returns the result of invoking `callback` with the FIRST element in `stringList`.
- * 
+ *
  * Example of usage of this higher-order function:
  * Invoking `processFirstItem` passing `['foo', 'bar']` and `(str) => str + str`,
  * should return 'foofoo'.
-*/
+ */
 function processFirstItem(stringList, callback) {
-  return callback(stringList[0])
+  return callback(stringList[0]);
 }
 
 // ⭐️ Example Challenge END ⭐️
-
 
 ///// M V P ///////
 
 /* Task 1: `counterMaker`
  * Study the code for counter1 and counter2. Answer the questions below.
- * 
+ *
  * 1. What is the difference between counter1 and counter2?
- * The difference between the two is that we are calling on the function counterMaker with 
- * counter 1 whereas counter 2 is its own fuction. 
+ *
+ * The difference between the two is that we are calling on the function counterMaker with
+ * counter 1 whereas counter 2 is its own function.
+ *
  * 2. Which of the two uses a closure? How can you tell?
+ *
  * Counter 2 because it closes out with the return function
- * 
- * 3. In what scenario would the counter1 code be preferable? In what scenario would counter2 be better? 
- * Counter 1 would be more usefule if you wanted to call on information on the global scale. Where as 
- * counter 2 keeps all of its information relative. 
-*/
+ *
+ * 3. In what scenario would the counter1 code be preferable? In what scenario would counter2 be better?
+ *
+ * Counter 1 would be more usefule if you wanted to call on information on the global scale. Where as
+ * counter 2 keeps all of its information relative.
+ */
 
 // counter1 code
 function counterMaker() {
   let count = 0;
   return function counter() {
-   return count++;
-  }
+    return count++;
+  };
 }
 
 const counter1 = counterMaker();
@@ -54,21 +57,22 @@ function counter2() {
   return count++;
 }
 
-
 /* Task 2: inning() 
 
 Write a function called `inning` that generates a random number of points that a team scored in an inning. This should be a whole number between 0 and 2. */
 
-function inning(min, max){
-  let points = 
-
-    /*Code Here*/
-
+function inning() {
+  let score = Math.floor(3 * Math.random());
+  return score;
 }
+
+console.log(inning());
 
 /* Task 3: finalScore()
 
-Write a higher order function called `finalScore` that accepts the callback function `inning` (from above) and a number of innings and and returns the final score of the game in the form of an object.
+Write a higher order function called `finalScore` that accepts the callback function `inning` 
+(from above and a number of innings and and returns the final score of the game 
+in the form of an object.
 
 For example, 
 
@@ -78,13 +82,23 @@ finalScore(inning, 9) might return:
   "Away": 5,
 }
 
-*/ 
+*/
 
-function finalScore(/*code Here*/){
+function finalScore(callback, num) {
+  let home = 0;
+  let away = 0;
+  for (let i = 0; i < num; i++) {
+    home = home + callback();
+    away = away + callback();
+  }
 
-  /*Code Here*/
-
+  let runs = {
+    Home: home,
+    Away: away,
+  };
+  return runs;
 }
+console.log(finalScore(inning, 9));
 
 /* Task 4: 
 
@@ -107,8 +121,24 @@ and returns the score at each pont in the game, like so:
 
 Final Score: 6 - 10 */
 
-function scoreboard(/* CODE HERE */) {
-  /* CODE HERE */
+function scoreboard(callback, num) {
+  let home = 0;
+  let away = 0;
+  for (let i = 1; i < num; i++) {
+    home = home + callback();
+    away = away + callback();
+    if (i === 1) {
+      console.log(`${i}st inning ${home} - ${away}`);
+    } else if (i === 2) {
+      console.log(`${i}nd inning ${home} - ${away}`);
+    } else if (i === 3) {
+      console.log(`${i}rd inning ${home} - ${away}`);
+    } else {
+      console.log(`${i}nd inning ${home} - ${away}`);
+    }
+
+    console.log(`Final score: ${home} - ${away}`);
+  }
 }
 
-
+scoreboard(inning, 9);

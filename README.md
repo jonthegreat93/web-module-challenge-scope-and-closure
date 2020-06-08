@@ -63,6 +63,7 @@ dansRoll();
 ```
 
 a. Where is closure used in this code? How can you tell?
+The return function personalDice. This is because it refers to name within the function where it is getting it's information from.
 
 b. Compare and contrast calling `dansRoll` the first and second time. What is always the same? What could change?
 Asking the function to pass information to the function personalDice. The output would change since it is a calling on the function a second time, of which the function outputs a random number.
